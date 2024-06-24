@@ -175,12 +175,26 @@ abstract class TestCase extends Orchestra
     {
         $this->replicationMode = getenv('REPLICATION_MODE') ?: 'local';
 
-        $app['config']->set('database.default', 'sqlite');
+        // $app['config']->set('database.default', 'sqlite');
 
-        $app['config']->set('database.connections.sqlite', [
-            'driver' => 'sqlite',
-            'database' => __DIR__.'/database.sqlite',
+        // $app['config']->set('database.connections.sqlite', [
+        //     'driver' => 'sqlite',
+        //     'database' => __DIR__.'/database.sqlite',
+        //     'prefix' => '',
+        // ]);
+        $app['config']->set('database.default', 'pgsql');
+
+        $app['config']->set('database.connections.pgsql', [
+            'driver' => 'pgsql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'trustanchor'),
+            'username' => env('DB_USERNAME', 'trustanchor'),
+            'password' => env('DB_PASSWORD', 'Yai3hahMaepi9uyo3Joh'),
+            'charset' => 'utf8',
             'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'prefer',
         ]);
 
         $app['config']->set('broadcasting.connections.websockets', [
